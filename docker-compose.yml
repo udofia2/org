@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  organization:
+    container_name: 'origanization_container'
+    build: .
+    restart: always
+    volumes:
+      - .:/app/
+      - /app/node_modules
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

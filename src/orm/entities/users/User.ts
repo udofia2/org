@@ -1,13 +1,21 @@
 import bcrypt from 'bcryptjs';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany,  } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
+import { Organization } from '../organization/Organization';
 import { Exclude } from 'class-transformer';
-
 import { Role, Language } from './types';
 
 @Entity('users')
 export class User {
-  @PrimaryGeneratedColumn()
-  userId: number;
+  @PrimaryGeneratedColumn('uuid')
+  userId: string;
 
   @Column({
     unique: true,
@@ -17,12 +25,6 @@ export class User {
   @Column()
   @Exclude()
   password: string;
-
-  @Column({
-    nullable: true,
-    unique: true,
-  })
-  username: string;
 
   @Column({
     nullable: true,
@@ -73,4 +75,19 @@ export class User {
   checkIfPasswordMatch(unencryptedPassword: string) {
     return bcrypt.compareSync(unencryptedPassword, this.password);
   }
+
+  @ManyToMany(() => Organization, (organization) => organization.users)
+  @JoinTable({
+    name: 'user_organizations',
+    joinColumn: {
+      name: 'userId',
+      referencedColumnName: 'userId',
+    },
+    inverseJoinColumn: {
+      name: 'orgId',
+      referencedColumnName: 'orgId',
+    },
+  })
+  @Exclude()
+  organizations: Organization[];
 }
