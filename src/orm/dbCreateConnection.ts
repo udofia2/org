@@ -6,13 +6,13 @@ export const dataSource = new DataSource(config);
 
 export const dbCreateConnection = async (): Promise<DataSource | null> => {
   try {
-    await dataSource.initialize(); // New line for initialization
+    await dataSource.initialize(); 
     console.log(
       `Database connection success. Connection name: '${dataSource.options.database}' Database: '${dataSource.options.database}'`,
     );
   } catch (err) {
     if (err.name === 'AlreadyHasActiveConnectionError') {
-      const activeConnection = new DataSource(config); // New approach
+      const activeConnection = new DataSource(config); 
       return activeConnection;
     }
     console.log(err);
