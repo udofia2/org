@@ -17,9 +17,9 @@ Fun package sending API
 
 
 - clone the repo
-- `npm install` 
-- `npm run dev` 
+- `yarn install` 
+- `yarn dev` 
 
 if you are on Linux, please append sudo.
-ex: `sudo npm run docker:dev`
+ex: `sudo yarn run docker:dev`
 
