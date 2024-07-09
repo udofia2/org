@@ -1,8 +1,9 @@
 import { DataSourceOptions } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
-import fs from 'fs'
-import path from 'path'
+import fs from 'fs';
+import path from 'path';
 
+console.log(process.env.CA);
 const config: DataSourceOptions = {
   type: 'postgres',
   name: 'default',
@@ -14,7 +15,8 @@ const config: DataSourceOptions = {
   synchronize: false,
   logging: false,
   ssl: {
-    ca: fs.readFileSync(path.join(__dirname, 'ca.pem'), 'utf8'),
+    ca: process.env.CA,
+    // ca: fs.readFileSync(path.join(__dirname, 'ca.pem'), 'utf8'),
   },
   entities: ['src/orm/entities/**/*.ts'],
   migrations: ['src/orm/migrations/**/*.ts'],
