@@ -9,6 +9,7 @@ const configSeed: DataSourceOptions = {
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
   synchronize: false,
+  ssl: true,
   logging: false,
   entities: ['src/orm/entities/**/*.ts'],
   migrations: ['src/orm/seeds/**/*.ts'],
